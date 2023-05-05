@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import { CV } from "./cv/cv";
+import Yo from "./components/persona/Yo";
+import Experiencia from "./components/persona/Experiencia";
+import Educacion from "./components/persona/Educacion";
+import Habilidades from "./components/persona/Habilidades";
 
-function App() {
+const { yo, experiencia, educacion, habilidades } = CV;
+
+function App() {  
+  const [mostrarEducacion, setMostrarEducacion] = useState(true);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Yo yo={yo}></Yo>
+      <span>
+        ________________________________________________________________________________
+        About me
+        ________________________________________________________________________________
+      </span>
+      <div className="custom-btn btn-4">
+      <button className="btn" onClick={() => setMostrarEducacion(true)}>
+        Educacion
+      </button>
+      <button className="btn" onClick={() => setMostrarEducacion(false)}>
+        Experiencia
+      </button>
+      </div>
+      <div>
+        {mostrarEducacion ? (
+          <Educacion educacion={educacion}></Educacion>
+        ) : (
+          <Experiencia experiencia={experiencia}></Experiencia>
+        )}
+      </div>
+      <span>
+        ________________________________________________________________________________
+        Habilidades
+        ________________________________________________________________________________
+      </span>
+      <Habilidades habilidades={habilidades}></Habilidades>    
     </div>
   );
 }
